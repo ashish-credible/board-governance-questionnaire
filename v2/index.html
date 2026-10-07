@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Board Governance Questionnaire</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+:root {
+  --bg: #f4f1ea; --surface: #ffffff; --ink: #14213d; --fg: #1f2937; --muted: #667085; --line: #e2ddd2; --line-strong: #cfc8ba;
+  --accent: #0f766e; --accent-ink: #ffffff; --accent-soft: #e3f3f0; --gold: #c98a1b; --field: #fbfaf7;
+  --display: "Fraunces", Georgia, serif; --body: "Inter", "Segoe UI", system-ui, sans-serif;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 15px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+.hero { background: radial-gradient(1200px 400px at 85% -10%, #24406f 0%, rgba(36,64,111,0) 60%), linear-gradient(135deg, #0e1a33, #14213d 55%, #1b2f55); color: #fff; }
+.hero-in { max-width: 860px; margin: 0 auto; padding: 44px 20px 76px; }
+.brandline { display: flex; align-items: center; gap: 10px; font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; color: #b9c6dd; font-weight: 600; }
+.brandline .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 4px rgba(201,138,27,.22); }
+.hero h1 { font-family: var(--display); font-weight: 600; font-size: clamp(2rem, 5vw, 2.9rem); line-height: 1.1; margin: 18px 0 12px; letter-spacing: -.01em; text-wrap: balance; }
+.hero p { margin: 0; max-width: 60ch; color: #d5dceb; font-size: 1.02rem; }
+.meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+.meta span { font-size: .82rem; padding: 6px 12px; border-radius: 999px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.16); color: #e7ecf6; }
+.wrap { max-width: 860px; margin: -44px auto 0; padding: 0 20px 96px; display: flex; flex-direction: column; gap: 22px; }
+.progress { position: sticky; top: 10px; z-index: 5; background: rgba(255,255,255,.92); backdrop-filter: blur(8px); border: 1px solid var(--line); border-radius: 14px; padding: 12px 16px; display: flex; align-items: center; gap: 14px; box-shadow: 0 10px 30px rgba(20,33,61,.10); }
+#count { font-weight: 600; font-size: .86rem; color: var(--ink); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.bar { flex: 1; height: 8px; background: #ece7dc; border-radius: 999px; overflow: hidden; }
+.bar i { display: block; height: 100%; width: 0; border-radius: 999px; background: linear-gradient(90deg, var(--accent), #2bb3a3); transition: width .35s ease; }
+.jump { display: flex; gap: 6px; }
+.jump a { text-decoration: none; font-size: .78rem; font-weight: 600; color: var(--muted); border: 1px solid var(--line); border-radius: 8px; padding: 4px 9px; }
+.jump a:hover { color: var(--accent); border-color: var(--accent); }
+section.part { display: flex; flex-direction: column; gap: 14px; scroll-margin-top: 84px; }
+section.part > h2 { display: flex; align-items: center; gap: 12px; font-family: var(--display); font-weight: 600; font-size: 1.35rem; color: var(--ink); margin: 14px 0 2px; }
+.letter { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 10px; background: var(--ink); color: #fff; font-family: var(--body); font-size: .95rem; font-weight: 700; }
+.pc { margin-left: auto; font-family: var(--body); font-size: .78rem; font-weight: 600; color: var(--muted); }
+.q { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 22px 22px 20px; display: flex; flex-direction: column; gap: 14px; min-width: 0; box-shadow: 0 1px 2px rgba(20,33,61,.04); transition: border-color .25s, box-shadow .25s; }
+.q:focus-within { border-color: var(--line-strong); box-shadow: 0 8px 26px rgba(20,33,61,.08); }
+.q h3 { margin: 0; display: flex; align-items: flex-start; gap: 12px; font-size: 1.04rem; font-weight: 600; color: var(--ink); line-height: 1.4; }
+.q h3 .num { flex: none; font-size: .74rem; font-weight: 700; letter-spacing: .04em; color: var(--accent); background: var(--accent-soft); border-radius: 8px; padding: 4px 8px; margin-top: 1px; }
+.q h3 .qt { flex: 1; text-wrap: pretty; }
+.tick { flex: none; display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; font-size: .72rem; font-weight: 700; color: transparent; border: 1.5px solid var(--line-strong); margin-top: 1px; transition: all .25s; }
+.q.done { border-color: #b9ddd6; }
+.q.done .tick { background: var(--accent); border-color: var(--accent); color: #fff; }
+.q > .field { flex: 0 0 auto; }
+.q p.help { margin: -6px 0 0; color: var(--muted); font-size: .88rem; }
+.row { display: flex; flex-wrap: wrap; gap: 16px; }
+.field { display: flex; flex-direction: column; gap: 6px; flex: 1 1 220px; min-width: 0; }
+.field > label, fieldset legend { font-size: .8rem; font-weight: 600; color: var(--muted); letter-spacing: .01em; }
+input[type="text"], input[type="number"], select, textarea { font: inherit; color: var(--fg); background: var(--field); border: 1px solid var(--line-strong); border-radius: 10px; padding: 11px 13px; width: 100%; transition: border-color .15s, box-shadow .15s, background .15s; }
+input[type="text"]:hover, input[type="number"]:hover, select:hover, textarea:hover { border-color: #b3ab9b; }
+input[type="text"]:focus, input[type="number"]:focus, select:focus, textarea:focus { outline: 0; border-color: var(--accent); background: #fff; box-shadow: 0 0 0 4px rgba(15,118,110,.14); }
+textarea { min-height: 120px; resize: vertical; }
+select { appearance: none; padding-right: 38px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%23667085' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; }
+fieldset { border: 0; padding: 0; margin: 0; min-width: 0; display: flex; flex-direction: column; gap: 8px; }
+fieldset legend { padding: 0; margin-bottom: 8px; }
+.opts { display: flex; flex-wrap: wrap; gap: 8px; }
+.opts label { display: inline-flex; align-items: center; gap: 8px; font-size: .92rem; font-weight: 500; color: var(--fg); background: var(--field); border: 1px solid var(--line-strong); border-radius: 999px; padding: 8px 14px 8px 11px; cursor: pointer; transition: all .15s; user-select: none; }
+.opts label:hover { border-color: var(--accent); }
+.opts label:has(input:checked) { background: var(--accent-soft); border-color: var(--accent); color: #0b5a54; }
+.opts input { width: 16px; height: 16px; margin: 0; accent-color: var(--accent); }
+.tablebox { overflow-x: auto; border: 1px solid var(--line-strong); border-radius: 12px; }
+table { border-collapse: collapse; width: 100%; min-width: 540px; font-size: .92rem; }
+th { text-align: left; font-size: .76rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); background: #f6f3ec; padding: 10px 12px; }
+td { padding: 8px 10px; border-top: 1px solid var(--line); }
+td.empty { color: var(--muted); text-align: center; padding: 22px; }
+td input[type="text"] { padding: 8px 10px; border-radius: 8px; }
+button { font: inherit; cursor: pointer; }
+.add { align-self: flex-start; color: var(--accent); background: #fff; border: 1px dashed var(--accent); border-radius: 10px; padding: 8px 14px; font-weight: 600; transition: background .15s; }
+.add:hover { background: var(--accent-soft); }
+.del { background: transparent; border: 0; color: var(--muted); padding: 4px 8px; border-radius: 6px; }
+.del:hover { color: #b42318; background: #fdeceb; }
+.finish { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 20px 22px; display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
+.finish p { margin: 0; flex: 1 1 260px; color: var(--muted); font-size: .9rem; }
+.finish strong { color: var(--ink); }
+.ghost { background: #fff; border: 1px solid var(--line-strong); color: var(--fg); border-radius: 10px; padding: 10px 16px; font-weight: 600; }
+.ghost:hover { border-color: var(--ink); }
+footer { color: var(--muted); font-size: .8rem; text-align: center; }
+@media (max-width: 560px) { .jump { display: none; } .q { padding: 18px 16px; } .hero-in { padding-top: 32px; } }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+<div class="hero"><div class="hero-in">
+  <div class="brandline"><span class="dot"></span>Governance · Climate oversight</div>
+  <h1>Board Governance Questionnaire</h1>
+  <p>Ten questions on how the board is composed, how it oversees climate-related risks and opportunities, and how often it meets. Answer from the organisation's board charter.</p>
+  <div class="meta"><span>10 questions</span><span>3 sections</span><span>Source: board charter</span></div>
+</div></div>
+
+<div class="wrap">
+  <div class="progress" aria-live="polite"><span id="count">0 of 10 answered</span><div class="bar"><i id="bar"></i></div>
+    <nav class="jump" aria-label="Sections"><a href="#sec-a">A</a><a href="#sec-b">B</a><a href="#sec-c">C</a></nav></div>
+
+  <section class="part" id="sec-a" aria-labelledby="part-a">
+    <h2 id="part-a"><span class="letter">A</span>Board composition<span class="pc" data-part="a"></span></h2>
+
+    <div class="q" data-question-id="A1">
+      <h3><span class="num">A1</span><span class="qt">Which body holds ultimate accountability for the organisation's climate strategy, targets and transition planning?</span><span class="tick" aria-hidden="true">✓</span></h3>
+      <div class="field"><label for="a1-body">Name of the accountable body</label><input type="text" id="a1-body" name="accountable_body"></div>
+    </div>
+
+    <div class="q" data-question-id="A2">
+      <h3><span class="num">A2</span><span class="qt">What limits does the charter set on the size of the board?</span><span class="tick" aria-hidden="true">✓</span></h3>
+      <div class="row">
+        <div class="field"><label for="a2-min">Minimum number of members</label><input type="number" id="a2-min" name="board_min" min="0"></div>
+        <div class="field"><label for="a2-max">Maximum number of members</label><input type="number" id="a2-max" name="board_max" min="0"></div>
+      </div>
+    </div>
+
+    <div class="q" data-question-id="A3">
+      <h3><span class="num">A3</span><span class="qt">Does the charter require a majority of independent, non-executive directors?</span><span class="tick" aria-hidden="true">✓</span></h3>
+      <fieldset><legend>Independent majority required</legend>
+        <div class="opts">
+          <label><input type="radio" name="independent_majority" id="a3-yes" value="Yes"> Yes</label>
+          <label><input type="radio" name="independent_majority" id="a3-no" value="No"> No</label>
+          <label><input type="radio" name="independent_majority" id="a3-ns" value="Not stated"> Not stated</label>
+        </div>
+      </fieldset>
+    </div>
+
+    <div class="q" data-question-id="A4">
+      <h3><span class="num">A4</span><span class="qt">Who are the current members of the board, and what position does each hold?</span><span class="tick" aria-hidden="true">✓</span></h3>
+      <p class="help">One row per director.</p>
+      <div class="tablebox">
+        <table id="a4-members">
+          <thead><tr><th>Name of director</th><th>Position</th><th>Committee role</th><th></th></tr></thead>
+          <tbody><tr><td class="empty" colspan="4">No entries yet. Click "Add row" to get started.</td></tr></tbody>
+        </table>
+      </div>
+      <button type="button" class="add" id="a4-add">+ Add row</button>
+    </div>
+
+    <div class="q" data-question-id="A5">
+      <h3><span class="num">A5</span><span class="qt">Which skills does the charter say the directors should collectively possess?</span><span class="tick" aria-hidden="true">✓</span></h3>
+      <fieldset><legend>Skills named in the charter</legend>
+        <div class="opts">
+          <label><input type="checkbox" name="skills" id="a5-fin" value="Finance"> Finance</label>
+          <label><input type="checkbox" name="skills" id="a5-str" value="Strategy"> Strategy</label>
+          <label><input type="checkbox" name="skills" id="a5-ind" value="Industry expertise"> Industry expertise</label>
+          <label><input type="checkbox" name="skills" id="a5-tech" value="Technology"> Technology</label>
+          <label><input type="checkbox" name="skills" id="a5-sus" value="Sustainability"> Sustainability</label>
+          <label><input type="checkbox" name="skills" id="a5-clim" value="Climate science"> Climate science</label>
+          <label><input type="checkbox" name="skills" id="a5-legal" value="Legal"> Legal</label>
+          <label><input type="checkbox" name="skills" id="a5-mkt" value="Marketing"> Marketing</label>
+        </div>
+      </fieldset>
+    </div>
+
+  </section>
+
+  <section class="part" id="sec-b" aria-labelledby="part-b">
+    <h2 id="part-b"><span class="letter">B</span>Climate oversight<span class="pc" data-part="b"></span></h2>
+
+    <div class="q" data-question-id="B1">
+      <h3><span class="num">B1</span><span class="qt">To which committee does the board delegate detailed oversight of climate matters?</span><span class="tick" aria-hidden="true">✓</span></h3>
+      <div class="field"><label for="b1-committee">Committee with delegated climate oversight</label>
+        <select id="b1-committee" name="climate_committee"><option value="">Select...</option><option>Audit &amp; Risk Committee</option><option>Sustainability &amp; Climate Committee</option><option>Nomination &amp; Remuneration Committee</option><option>No committee; the full board</option></select></div>
+    </div>
+
+    <div class="q" data-question-id="B2">
+      <h3><span class="num">B2</span><span class="qt">How often does the board review climate-related metrics and progress?</span><span class="tick" aria-hidden="true">✓</span></h3>
+      <div class="field"><label for="b2-freq">Review frequency for climate metrics</label>
+        <select id="b2-freq" name="climate_review_frequency"><option value="">Select...</option><option>Monthly</option><option>Quarterly</option><option>Half-yearly</option><option>Annually</option></select></div>
+    </div>
+
+    <div class="q" data-question-id="B3">
+      <h3><span class="num">B3</span><span class="qt">Which reporting standards does the board commit to align with?</span><span class="tick" aria-hidden="true">✓</span></h3>
+      <fieldset><legend>Standards named in the charter</legend>
+        <div class="opts">
+          <label><input type="checkbox" name="standards" id="b3-issb" value="ISSB / IFRS S2"> ISSB / IFRS S2</label>
+          <label><input type="checkbox" name="standards" id="b3-tcfd" value="TCFD"> TCFD</label>
+          <label><input type="checkbox" name="standards" id="b3-gri" value="GRI"> GRI</label>
+          <label><input type="checkbox" name="standards" id="b3-cdp" value="CDP"> CDP</label>
+          <label><input type="checkbox" name="standards" id="b3-sasb" value="SASB"> SASB</label>
+        </div>
+      </fieldset>
+    </div>
+
+    <div class="q" data-question-id="B4">
+      <h3><span class="num">B4</span><span class="qt">How does the board build climate considerations into strategy, risk and capital allocation?</span><span class="tick" aria-hidden="true">✓</span></h3>
+      <div class="field"><label for="b4-integration">Description of the climate oversight framework</label><textarea id="b4-integration" name="climate_integration"></textarea></div>
+    </div>
+
+  </section>
+
+  <section class="part" id="sec-c" aria-labelledby="part-c">
+    <h2 id="part-c"><span class="letter">C</span>Meetings<span class="pc" data-part="c"></span></h2>
+
+    <div class="q" data-question-id="C1">
+      <h3><span class="num">C1</span><span class="qt">How often does the board meet, and does any meeting include an in-depth climate review?</span><span class="tick" aria-hidden="true">✓</span></h3>
+      <div class="row">
+        <div class="field"><label for="c1-freq">Minimum meeting frequency</label>
+          <select id="c1-freq" name="meeting_frequency"><option value="">Select...</option><option>Monthly</option><option>Quarterly</option><option>Half-yearly</option><option>Annually</option></select></div>
+        <fieldset class="field"><legend>Annual strategy session covers climate risks and opportunities</legend>
+          <div class="opts">
+            <label><input type="radio" name="strategy_session_climate" id="c1-yes" value="Yes"> Yes</label>
+            <label><input type="radio" name="strategy_session_climate" id="c1-no" value="No"> No</label>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+
+  </section>
+
+  <div class="finish">
+    <p><strong id="left">10 questions left.</strong> This is a demonstration form: answers stay in this browser tab and nothing is sent anywhere.</p>
+    <button type="button" class="ghost" id="clear">Clear answers</button>
+  </div>
+  <footer>Board Governance Questionnaire · demonstration form</footer>
+</div>
+
+<script>
+(function () {
+  var add = document.getElementById('a4-add'), body = document.querySelector('#a4-members tbody');
+  var emptyRow = body.innerHTML;
+  add.addEventListener('click', function () {
+    if (body.querySelector('td.empty')) body.innerHTML = '';
+    var n = body.rows.length + 1, tr = body.insertRow();
+    tr.innerHTML = '<td><input type="text" placeholder="Enter text..." aria-label="Name of director"></td>' +
+      '<td><input type="text" placeholder="Enter text..." aria-label="Position"></td>' +
+      '<td><input type="text" placeholder="Enter text..." aria-label="Committee role"></td>' +
+      '<td><button type="button" class="del" aria-label="Delete row ' + n + '">✕</button></td>';
+    tr.querySelector('button').addEventListener('click', function () { tr.remove(); if (!body.rows.length) body.innerHTML = emptyRow; update(); });
+    update();
+  });
+  function answered(q) {
+    var c = q.querySelectorAll('input, select, textarea');
+    for (var i = 0; i < c.length; i++) {
+      var el = c[i];
+      if ((el.type === 'radio' || el.type === 'checkbox') ? el.checked : el.value.trim() !== '') return true;
+    }
+    return false;
+  }
+  function update() {
+    var qs = document.querySelectorAll('.q'), n = 0;
+    qs.forEach(function (q) { var a = answered(q); q.classList.toggle('done', a); if (a) n++; });
+    document.getElementById('count').textContent = n + ' of ' + qs.length + ' answered';
+    document.getElementById('bar').style.width = (100 * n / qs.length) + '%';
+    var left = qs.length - n;
+    document.getElementById('left').textContent = left ? left + ' question' + (left === 1 ? '' : 's') + ' left.' : 'All questions answered.';
+    document.querySelectorAll('section.part').forEach(function (s) {
+      var all = s.querySelectorAll('.q'), d = s.querySelectorAll('.q.done');
+      s.querySelector('.pc').textContent = d.length + ' / ' + all.length;
+    });
+  }
+  document.getElementById('clear').addEventListener('click', function () {
+    document.querySelectorAll('.q input, .q select, .q textarea').forEach(function (el) {
+      if (el.type === 'radio' || el.type === 'checkbox') el.checked = false; else el.value = '';
+    });
+    body.innerHTML = emptyRow;
+    update();
+  });
+  document.addEventListener('input', update);
+  document.addEventListener('change', update);
+  setInterval(update, 1500); // values written by scripts or extensions do not always fire events
+  update();
+})();
+</script>
+</body>
+</html>
