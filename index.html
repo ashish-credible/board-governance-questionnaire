@@ -34,6 +34,7 @@ section.part > h2 { font-family: var(--display); font-weight: 600; font-size: 1.
 .q { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 16px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
 .q h3 { margin: 0; font-size: 1rem; font-weight: 600; text-wrap: balance; }
 .q h3 .num { font-family: var(--mono); font-weight: 500; color: var(--accent); margin-right: 6px; }
+.q > .field { flex: 0 0 auto; }
 .q p.help { margin: 0; color: var(--muted); font-size: .88rem; }
 .row { display: flex; flex-wrap: wrap; gap: 12px; }
 .field { display: flex; flex-direction: column; gap: 4px; flex: 1 1 200px; min-width: 0; }
@@ -64,10 +65,10 @@ footer { color: var(--muted); font-size: .82rem; }
   <header class="top">
     <div class="eyebrow">Governance · Climate oversight</div>
     <h1>Board Governance Questionnaire</h1>
-    <p>Seventeen questions on how the board is composed, how it oversees climate-related risks and opportunities, and how it reviews its own work. Answer from the organisation's board charter.</p>
+    <p>Ten questions on how the board is composed, how it oversees climate-related risks and opportunities, and how it reviews its own work. Answer from the organisation's board charter.</p>
   </header>
 
-  <div class="progress" aria-live="polite"><span id="count">0 of 17 answered</span><div class="bar"><i id="bar"></i></div></div>
+  <div class="progress" aria-live="polite"><span id="count">0 of 10 answered</span><div class="bar"><i id="bar"></i></div></div>
 
   <section class="part" aria-labelledby="part-a">
     <h2 id="part-a">A. Board composition</h2>
@@ -124,18 +125,6 @@ footer { color: var(--muted); font-size: .82rem; }
       </fieldset>
     </div>
 
-    <div class="q" data-question-id="A6">
-      <h3><span class="num">A6</span>Which standing committees has the board established?</h3>
-      <fieldset><legend>Standing committees</legend>
-        <div class="opts">
-          <label><input type="checkbox" name="committees" id="a6-arc" value="Audit &amp; Risk Committee"> Audit &amp; Risk Committee</label>
-          <label><input type="checkbox" name="committees" id="a6-scc" value="Sustainability &amp; Climate Committee"> Sustainability &amp; Climate Committee</label>
-          <label><input type="checkbox" name="committees" id="a6-nrc" value="Nomination &amp; Remuneration Committee"> Nomination &amp; Remuneration Committee</label>
-          <label><input type="checkbox" name="committees" id="a6-tech" value="Technology Committee"> Technology Committee</label>
-          <label><input type="checkbox" name="committees" id="a6-inv" value="Investment Committee"> Investment Committee</label>
-        </div>
-      </fieldset>
-    </div>
   </section>
 
   <section class="part" aria-labelledby="part-b">
@@ -171,14 +160,10 @@ footer { color: var(--muted); font-size: .82rem; }
       <div class="field"><label for="b4-integration">Description of the climate oversight framework</label><textarea id="b4-integration" name="climate_integration"></textarea></div>
     </div>
 
-    <div class="q" data-question-id="B5">
-      <h3><span class="num">B5</span>Which categories of risk does the board's risk appetite cover?</h3>
-      <div class="field"><label for="b5-risks">Risk categories covered</label><textarea id="b5-risks" name="risk_categories"></textarea></div>
-    </div>
   </section>
 
   <section class="part" aria-labelledby="part-c">
-    <h2 id="part-c">C. Meetings, evaluation and review</h2>
+    <h2 id="part-c">C. Meetings</h2>
 
     <div class="q" data-question-id="C1">
       <h3><span class="num">C1</span>How often does the board meet, and does any meeting include an in-depth climate review?</h3>
@@ -194,39 +179,6 @@ footer { color: var(--muted); font-size: .82rem; }
       </div>
     </div>
 
-    <div class="q" data-question-id="C2">
-      <h3><span class="num">C2</span>How often is the effectiveness of the risk management framework reviewed?</h3>
-      <div class="field"><label for="c2-freq">Risk framework review frequency</label>
-        <select id="c2-freq" name="risk_review_frequency"><option value="">Select...</option><option>At least quarterly</option><option>At least annually</option><option>Every two years</option><option>Not stated</option></select></div>
-    </div>
-
-    <div class="q" data-question-id="C3">
-      <h3><span class="num">C3</span>How is the board's own performance evaluated?</h3>
-      <div class="row">
-        <div class="field"><label for="c3-freq">Evaluation frequency</label>
-          <select id="c3-freq" name="evaluation_frequency"><option value="">Select...</option><option>Annually</option><option>Every two years</option><option>Every three years</option><option>Not stated</option></select></div>
-        <div class="field"><label for="c3-ext">Externally facilitated at least every (years)</label><input type="number" id="c3-ext" name="external_evaluation_years" min="0"></div>
-      </div>
-    </div>
-
-    <div class="q" data-question-id="C4">
-      <h3><span class="num">C4</span>How are directors inducted and kept up to date on climate matters?</h3>
-      <div class="field"><label for="c4-dev">Induction and ongoing development</label><textarea id="c4-dev" name="director_development"></textarea></div>
-    </div>
-
-    <div class="q" data-question-id="C5">
-      <h3><span class="num">C5</span>Whose approval do directors need to obtain independent professional advice at the company's expense?</h3>
-      <div class="field"><label for="c5-approver">Approver</label><input type="text" id="c5-approver" name="advice_approver"></div>
-    </div>
-
-    <div class="q" data-question-id="C6">
-      <h3><span class="num">C6</span>How often is the charter itself reviewed, and how are amendments approved?</h3>
-      <div class="row">
-        <div class="field"><label for="c6-freq">Charter review frequency</label>
-          <select id="c6-freq" name="charter_review_frequency"><option value="">Select...</option><option>At least annually</option><option>Every two years</option><option>Every three years</option><option>Not stated</option></select></div>
-        <div class="field"><label for="c6-how">How amendments are approved</label><input type="text" id="c6-how" name="amendment_approval"></div>
-      </div>
-    </div>
   </section>
 
   <footer>Answers stay in this browser tab. Nothing is sent anywhere.</footer>
