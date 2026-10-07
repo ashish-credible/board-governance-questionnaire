@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Board Governance Questionnaire</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column of question cards under a sticky progress strip; section headers carry the charter area. */
+:root {
+  --bg: #f3f5f4; --surface: #ffffff; --fg: #17211f; --muted: #5b6966; --line: #d3dbd8;
+  --accent: #0d5c56; --accent-soft: #e2efec; --field: #fbfcfc;
+  --display: "IBM Plex Serif", Georgia, serif;
+  --body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #101615; --surface: #18201f; --fg: #e6ecea; --muted: #9aa8a5; --line: #2c3836;
+  --accent: #5cc4b8; --accent-soft: #1b302d; --field: #121a19; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #101615; --surface: #18201f; --fg: #e6ecea; --muted: #9aa8a5; --line: #2c3836;
+  --accent: #5cc4b8; --accent-soft: #1b302d; --field: #121a19; color-scheme: dark }
+body { background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 15px; line-height: 1.5; }
+.wrap { max-width: 760px; margin: 0 auto; padding-inline: 16px; padding-block: 28px 64px; display: flex; flex-direction: column; gap: 20px; }
+header.top h1 { font-family: var(--display); font-weight: 600; font-size: 1.9rem; line-height: 1.2; margin: 6px 0 8px; text-wrap: balance; }
+.eyebrow { font-family: var(--mono); font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+header.top p { margin: 0; color: var(--muted); max-width: 62ch; }
+.progress { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 2; background: var(--bg); padding-block: 8px; display: flex; align-items: center; gap: 12px; font-family: var(--mono); font-size: .78rem; color: var(--muted); }
+.bar { flex: 1; height: 4px; background: var(--line); border-radius: 2px; overflow: hidden; }
+.bar i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .2s; }
+section.part { display: flex; flex-direction: column; gap: 12px; }
+section.part > h2 { font-family: var(--display); font-weight: 600; font-size: 1.2rem; margin: 12px 0 0; padding-bottom: 6px; border-bottom: 1px solid var(--line); }
+.q { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 16px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.q h3 { margin: 0; font-size: 1rem; font-weight: 600; text-wrap: balance; }
+.q h3 .num { font-family: var(--mono); font-weight: 500; color: var(--accent); margin-right: 6px; }
+.q p.help { margin: 0; color: var(--muted); font-size: .88rem; }
+.row { display: flex; flex-wrap: wrap; gap: 12px; }
+.field { display: flex; flex-direction: column; gap: 4px; flex: 1 1 200px; min-width: 0; }
+.field > label, fieldset legend { font-size: .86rem; font-weight: 500; }
+input[type="text"], input[type="number"], select, textarea {
+  font: inherit; color: var(--fg); background: var(--field); border: 1px solid var(--line); border-radius: 4px; padding: 8px 10px; width: 100%; box-sizing: border-box; }
+textarea { min-height: 96px; resize: vertical; }
+input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+fieldset { border: 0; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px; }
+fieldset legend { padding: 0; margin-bottom: 4px; }
+.opts { display: flex; flex-wrap: wrap; gap: 6px 18px; }
+.opts label { display: inline-flex; align-items: center; gap: 6px; font-size: .92rem; }
+.tablebox { overflow-x: auto; border: 1px solid var(--line); border-radius: 4px; }
+table { border-collapse: collapse; width: 100%; min-width: 520px; font-size: .9rem; }
+th { text-align: left; font-weight: 500; background: var(--accent-soft); padding: 8px 10px; }
+td { padding: 6px 8px; border-top: 1px solid var(--line); }
+td.empty { color: var(--muted); text-align: center; padding: 16px; }
+td input[type="text"] { padding: 6px 8px; }
+button { font: inherit; cursor: pointer; }
+.add { align-self: flex-start; color: var(--accent); background: transparent; border: 1px solid var(--accent); border-radius: 4px; padding: 6px 12px; font-weight: 500; }
+.del { background: transparent; border: 0; color: var(--muted); padding: 4px 8px; }
+footer { color: var(--muted); font-size: .82rem; }
+@media (prefers-reduced-motion: reduce) { .bar i { transition: none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="eyebrow">Governance · Climate oversight</div>
+    <h1>Board Governance Questionnaire</h1>
+    <p>Seventeen questions on how the board is composed, how it oversees climate-related risks and opportunities, and how it reviews its own work. Answer from the organisation's board charter.</p>
+  </header>
+
+  <div class="progress" aria-live="polite"><span id="count">0 of 17 answered</span><div class="bar"><i id="bar"></i></div></div>
+
+  <section class="part" aria-labelledby="part-a">
+    <h2 id="part-a">A. Board composition</h2>
+
+    <div class="q" data-question-id="A1">
+      <h3><span class="num">A1</span>Which body holds ultimate accountability for the organisation's climate strategy, targets and transition planning?</h3>
+      <div class="field"><label for="a1-body">Name of the accountable body</label><input type="text" id="a1-body" name="accountable_body"></div>
+    </div>
+
+    <div class="q" data-question-id="A2">
+      <h3><span class="num">A2</span>What limits does the charter set on the size of the board?</h3>
+      <div class="row">
+        <div class="field"><label for="a2-min">Minimum number of members</label><input type="number" id="a2-min" name="board_min" min="0"></div>
+        <div class="field"><label for="a2-max">Maximum number of members</label><input type="number" id="a2-max" name="board_max" min="0"></div>
+      </div>
+    </div>
+
+    <div class="q" data-question-id="A3">
+      <h3><span class="num">A3</span>Does the charter require a majority of independent, non-executive directors?</h3>
+      <fieldset><legend>Independent majority required</legend>
+        <div class="opts">
+          <label><input type="radio" name="independent_majority" id="a3-yes" value="Yes"> Yes</label>
+          <label><input type="radio" name="independent_majority" id="a3-no" value="No"> No</label>
+          <label><input type="radio" name="independent_majority" id="a3-ns" value="Not stated"> Not stated</label>
+        </div>
+      </fieldset>
+    </div>
+
+    <div class="q" data-question-id="A4">
+      <h3><span class="num">A4</span>Who are the current members of the board, and what position does each hold?</h3>
+      <p class="help">One row per director.</p>
+      <div class="tablebox">
+        <table id="a4-members">
+          <thead><tr><th>Name of director</th><th>Position</th><th>Committee role</th><th></th></tr></thead>
+          <tbody><tr><td class="empty" colspan="4">No entries yet. Click "Add row" to get started.</td></tr></tbody>
+        </table>
+      </div>
+      <button type="button" class="add" id="a4-add">+ Add row</button>
+    </div>
+
+    <div class="q" data-question-id="A5">
+      <h3><span class="num">A5</span>Which skills does the charter say the directors should collectively possess?</h3>
+      <fieldset><legend>Skills named in the charter</legend>
+        <div class="opts">
+          <label><input type="checkbox" name="skills" id="a5-fin" value="Finance"> Finance</label>
+          <label><input type="checkbox" name="skills" id="a5-str" value="Strategy"> Strategy</label>
+          <label><input type="checkbox" name="skills" id="a5-ind" value="Industry expertise"> Industry expertise</label>
+          <label><input type="checkbox" name="skills" id="a5-tech" value="Technology"> Technology</label>
+          <label><input type="checkbox" name="skills" id="a5-sus" value="Sustainability"> Sustainability</label>
+          <label><input type="checkbox" name="skills" id="a5-clim" value="Climate science"> Climate science</label>
+          <label><input type="checkbox" name="skills" id="a5-legal" value="Legal"> Legal</label>
+          <label><input type="checkbox" name="skills" id="a5-mkt" value="Marketing"> Marketing</label>
+        </div>
+      </fieldset>
+    </div>
+
+    <div class="q" data-question-id="A6">
+      <h3><span class="num">A6</span>Which standing committees has the board established?</h3>
+      <fieldset><legend>Standing committees</legend>
+        <div class="opts">
+          <label><input type="checkbox" name="committees" id="a6-arc" value="Audit &amp; Risk Committee"> Audit &amp; Risk Committee</label>
+          <label><input type="checkbox" name="committees" id="a6-scc" value="Sustainability &amp; Climate Committee"> Sustainability &amp; Climate Committee</label>
+          <label><input type="checkbox" name="committees" id="a6-nrc" value="Nomination &amp; Remuneration Committee"> Nomination &amp; Remuneration Committee</label>
+          <label><input type="checkbox" name="committees" id="a6-tech" value="Technology Committee"> Technology Committee</label>
+          <label><input type="checkbox" name="committees" id="a6-inv" value="Investment Committee"> Investment Committee</label>
+        </div>
+      </fieldset>
+    </div>
+  </section>
+
+  <section class="part" aria-labelledby="part-b">
+    <h2 id="part-b">B. Climate oversight</h2>
+
+    <div class="q" data-question-id="B1">
+      <h3><span class="num">B1</span>To which committee does the board delegate detailed oversight of climate matters?</h3>
+      <div class="field"><label for="b1-committee">Committee with delegated climate oversight</label>
+        <select id="b1-committee" name="climate_committee"><option value="">Select...</option><option>Audit &amp; Risk Committee</option><option>Sustainability &amp; Climate Committee</option><option>Nomination &amp; Remuneration Committee</option><option>No committee; the full board</option></select></div>
+    </div>
+
+    <div class="q" data-question-id="B2">
+      <h3><span class="num">B2</span>How often does the board review climate-related metrics and progress?</h3>
+      <div class="field"><label for="b2-freq">Review frequency for climate metrics</label>
+        <select id="b2-freq" name="climate_review_frequency"><option value="">Select...</option><option>Monthly</option><option>Quarterly</option><option>Half-yearly</option><option>Annually</option></select></div>
+    </div>
+
+    <div class="q" data-question-id="B3">
+      <h3><span class="num">B3</span>Which reporting standards does the board commit to align with?</h3>
+      <fieldset><legend>Standards named in the charter</legend>
+        <div class="opts">
+          <label><input type="checkbox" name="standards" id="b3-issb" value="ISSB / IFRS S2"> ISSB / IFRS S2</label>
+          <label><input type="checkbox" name="standards" id="b3-tcfd" value="TCFD"> TCFD</label>
+          <label><input type="checkbox" name="standards" id="b3-gri" value="GRI"> GRI</label>
+          <label><input type="checkbox" name="standards" id="b3-cdp" value="CDP"> CDP</label>
+          <label><input type="checkbox" name="standards" id="b3-sasb" value="SASB"> SASB</label>
+        </div>
+      </fieldset>
+    </div>
+
+    <div class="q" data-question-id="B4">
+      <h3><span class="num">B4</span>How does the board build climate considerations into strategy, risk and capital allocation?</h3>
+      <div class="field"><label for="b4-integration">Description of the climate oversight framework</label><textarea id="b4-integration" name="climate_integration"></textarea></div>
+    </div>
+
+    <div class="q" data-question-id="B5">
+      <h3><span class="num">B5</span>Which categories of risk does the board's risk appetite cover?</h3>
+      <div class="field"><label for="b5-risks">Risk categories covered</label><textarea id="b5-risks" name="risk_categories"></textarea></div>
+    </div>
+  </section>
+
+  <section class="part" aria-labelledby="part-c">
+    <h2 id="part-c">C. Meetings, evaluation and review</h2>
+
+    <div class="q" data-question-id="C1">
+      <h3><span class="num">C1</span>How often does the board meet, and does any meeting include an in-depth climate review?</h3>
+      <div class="row">
+        <div class="field"><label for="c1-freq">Minimum meeting frequency</label>
+          <select id="c1-freq" name="meeting_frequency"><option value="">Select...</option><option>Monthly</option><option>Quarterly</option><option>Half-yearly</option><option>Annually</option></select></div>
+        <fieldset class="field"><legend>Annual strategy session covers climate risks and opportunities</legend>
+          <div class="opts">
+            <label><input type="radio" name="strategy_session_climate" id="c1-yes" value="Yes"> Yes</label>
+            <label><input type="radio" name="strategy_session_climate" id="c1-no" value="No"> No</label>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+
+    <div class="q" data-question-id="C2">
+      <h3><span class="num">C2</span>How often is the effectiveness of the risk management framework reviewed?</h3>
+      <div class="field"><label for="c2-freq">Risk framework review frequency</label>
+        <select id="c2-freq" name="risk_review_frequency"><option value="">Select...</option><option>At least quarterly</option><option>At least annually</option><option>Every two years</option><option>Not stated</option></select></div>
+    </div>
+
+    <div class="q" data-question-id="C3">
+      <h3><span class="num">C3</span>How is the board's own performance evaluated?</h3>
+      <div class="row">
+        <div class="field"><label for="c3-freq">Evaluation frequency</label>
+          <select id="c3-freq" name="evaluation_frequency"><option value="">Select...</option><option>Annually</option><option>Every two years</option><option>Every three years</option><option>Not stated</option></select></div>
+        <div class="field"><label for="c3-ext">Externally facilitated at least every (years)</label><input type="number" id="c3-ext" name="external_evaluation_years" min="0"></div>
+      </div>
+    </div>
+
+    <div class="q" data-question-id="C4">
+      <h3><span class="num">C4</span>How are directors inducted and kept up to date on climate matters?</h3>
+      <div class="field"><label for="c4-dev">Induction and ongoing development</label><textarea id="c4-dev" name="director_development"></textarea></div>
+    </div>
+
+    <div class="q" data-question-id="C5">
+      <h3><span class="num">C5</span>Whose approval do directors need to obtain independent professional advice at the company's expense?</h3>
+      <div class="field"><label for="c5-approver">Approver</label><input type="text" id="c5-approver" name="advice_approver"></div>
+    </div>
+
+    <div class="q" data-question-id="C6">
+      <h3><span class="num">C6</span>How often is the charter itself reviewed, and how are amendments approved?</h3>
+      <div class="row">
+        <div class="field"><label for="c6-freq">Charter review frequency</label>
+          <select id="c6-freq" name="charter_review_frequency"><option value="">Select...</option><option>At least annually</option><option>Every two years</option><option>Every three years</option><option>Not stated</option></select></div>
+        <div class="field"><label for="c6-how">How amendments are approved</label><input type="text" id="c6-how" name="amendment_approval"></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>Answers stay in this browser tab. Nothing is sent anywhere.</footer>
+</div>
+
+<script>
+(function () {
+  var add = document.getElementById('a4-add'), body = document.querySelector('#a4-members tbody');
+  add.addEventListener('click', function () {
+    if (body.querySelector('td.empty')) body.innerHTML = '';
+    var n = body.rows.length + 1, tr = body.insertRow();
+    tr.innerHTML = '<td><input type="text" placeholder="Enter text..." aria-label="Name of director"></td>' +
+      '<td><input type="text" placeholder="Enter text..." aria-label="Position"></td>' +
+      '<td><input type="text" placeholder="Enter text..." aria-label="Committee role"></td>' +
+      '<td><button type="button" class="del" aria-label="Delete row ' + n + '">✕</button></td>';
+    tr.querySelector('button').addEventListener('click', function () { tr.remove(); update(); });
+    update();
+  });
+  function answered(q) {
+    var c = q.querySelectorAll('input, select, textarea');
+    for (var i = 0; i < c.length; i++) {
+      var el = c[i];
+      if ((el.type === 'radio' || el.type === 'checkbox') ? el.checked : el.value.trim() !== '') return true;
+    }
+    return false;
+  }
+  function update() {
+    var qs = document.querySelectorAll('.q'), n = 0;
+    qs.forEach(function (q) { if (answered(q)) n++; });
+    document.getElementById('count').textContent = n + ' of ' + qs.length + ' answered';
+    document.getElementById('bar').style.width = (100 * n / qs.length) + '%';
+  }
+  document.addEventListener('input', update);
+  document.addEventListener('change', update);
+  setInterval(update, 1500); // values written by scripts or extensions do not always fire events
+  update();
+})();
+</script>
+</body>
+</html>
